@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h3>
-        <strong>{{ currentUser.username }}</strong> Profile
+        <strong>{{ currentUser.name }}</strong> Profile
       </h3>
     </header>
     <p>
@@ -32,7 +32,7 @@ export default {
   name: "Profile",
   computed: {
     currentUser() {
-      return this.$store.state.auth.user;
+      return this.$store.state.authentication.user;
     },
   },
   mounted() {

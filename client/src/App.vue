@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href class="navbar-brand" @click.prevent>bezKoder</a>
+      <a href class="navbar-brand col-6" @click.prevent
+        >@rtful batina creative studios</a
+      >
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
@@ -38,7 +40,7 @@
         <li class="nav-item">
           <router-link to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
-            {{ currentUser.username }}
+            {{ currentUser.name }}
           </router-link>
         </li>
         <li class="nav-item">
@@ -59,7 +61,7 @@
 export default {
   computed: {
     currentUser() {
-      return this.$store.state.auth.user;
+      return this.$store.state.authentication.user;
     },
     showAdminBoard() {
       if (this.currentUser && this.currentUser.roles) {
@@ -78,7 +80,7 @@ export default {
   },
   methods: {
     logOut() {
-      this.$store.dispatch("auth/logout");
+      this.$store.dispatch("authentication/logout");
       this.$router.push("/login");
     },
   },

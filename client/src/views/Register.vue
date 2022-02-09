@@ -12,12 +12,22 @@
             <label for="name">name</label>
             <input
               v-model="user.name"
-              v-validate="'required|min:3|max:20'"
+              data-vv-validate-on="blur"
               type="text"
               class="form-control"
               name="name"
               placeholder="name"
-            />
+            /><!--
+            <ValidationProvider>
+              <input
+                v-model="user.name"
+                name="name"
+                data-vv-validate-on="blur"
+                class="form-control"
+                placeholder="John"
+                type="text"
+              />
+            </ValidationProvider>-->
             <div v-if="submitted && errors.has('name')" class="alert-danger">
               {{ errors.first("name") }}
             </div>
@@ -26,12 +36,24 @@
             <label for="email">Email</label>
             <input
               v-model="user.email"
-              v-validate="'required|email|max:50'"
               type="email"
               class="form-control"
               name="email"
               placeholder="email"
             />
+            <!--<ValidationProvider>
+              <input
+                v-model="user.email"
+                data-vv-validate-on="blur"
+                tag="email"
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="email
+                
+              "
+              />
+            </ValidationProvider>-->
             <div v-if="submitted && errors.has('email')" class="alert-danger">
               {{ errors.first("email") }}
             </div>
@@ -40,12 +62,21 @@
             <label for="password">Password</label>
             <input
               v-model="user.password"
-              v-validate="'required|min:6|max:40'"
               type="password"
               class="form-control"
               name="password"
               placeholder="password"
-            />
+            /><!--
+            <ValidationProvider>
+              <input
+                v-model="user.password"
+                data-vv-validate-on="blur"
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="password"
+              />
+            </ValidationProvider>-->
             <div
               v-if="submitted && errors.has('password')"
               class="alert-danger"
@@ -54,7 +85,9 @@
             </div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block">Sign Up</button>
+            <button class="btn btn-primary btn-block" type="submit">
+              Sign Up
+            </button>
           </div>
         </div>
       </form>
@@ -72,6 +105,8 @@
 
 <script>
 import User from "../models/user";
+//import { reactive } from "vue";
+//import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "Register",
@@ -81,11 +116,13 @@ export default {
       submitted: false,
       successful: false,
       message: "",
+      // errors: "Something went wrong!",
     };
   },
+
   computed: {
     loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
+      return this.$store.state.authentication.status.loggedIn;
     },
   },
   mounted() {
@@ -99,7 +136,7 @@ export default {
       this.submitted = true;
       this.$validator.validate().then((isValid) => {
         if (isValid) {
-          this.$store.dispatch("auth/register", this.user).then(
+          this.$store.dispatch("authentication/register", this.user).then(
             (data) => {
               this.message = data.message;
               this.successful = true;
@@ -110,6 +147,7 @@ export default {
                 error.message ||
                 error.toString();
               this.successful = false;
+              console.log(error);
             }
           );
         }

@@ -6,7 +6,7 @@ import Register from "./views/Register.vue";
 
 Vue.use(Router);
 
-const router = new Router({
+export const router = new Router({
   mode: "history",
   routes: [
     {
@@ -67,4 +67,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-module.exports = router;
+//module.exports = router;
