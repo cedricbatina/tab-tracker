@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
+import Songs from "./components/Songs.vue";
 
 Vue.use(Router);
 
@@ -27,6 +28,10 @@ export const router = new Router({
       component: Register,
     },
     {
+      path: "/songs",
+      component: Songs,
+    },
+    {
       path: "/profile",
       name: "profile",
       // lazy-loaded
@@ -39,7 +44,7 @@ export const router = new Router({
       component: () => import("./views/AdminBoard.vue"),
     },
     {
-      path: "/mod",
+      path: "/moderator",
       name: "moderator",
       // lazy-loaded
       component: () => import("./views/ModeratorBoard.vue"),

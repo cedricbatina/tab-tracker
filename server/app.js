@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const path = require("path"); // getting access to the server's path
 const helmet = require("helmet"); // for security
 const userRoute = require("./routes/user.route");
+const songRoute = require("./routes/song.route");
 
 const app = express();
 
@@ -26,8 +27,9 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-app.use("/api/auth", userRoute);
-/*app.use((req, res, next) => {
+app.use("/api", userRoute);
+app.use("/api", songRoute);
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -38,7 +40,7 @@ app.use("/api/auth", userRoute);
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
   next();
-});*/
+});
 const db = require("./models");
 const Role = db.role;
 

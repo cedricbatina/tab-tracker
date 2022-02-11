@@ -4,7 +4,6 @@ import App from "./App.vue";
 //import { required, validate } from "vee-validate/dist/rules.umd.js";
 
 import * as VeeValidate from "vee-validate";
-import { ValidationProvider, ValidationObserver } from "vee-validate";
 
 //const router = require("router");
 import { router } from "./router";
@@ -28,16 +27,13 @@ Vue.config.productionTip = false;
 Vue.use(VeeValidate, { events: "input|blur" });
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
-import { required, minLength } from "vuelidate/lib/validators";
-Vue.component("ValidationProvider", ValidationProvider);
-Vue.component("ValidationObserver", ValidationObserver);
-Vue.component("required", required);
-Vue.component("minLength", minLength);
+import vuetify from "./plugins/vuetify";
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 new Vue({
   router,
   store,
+  vuetify,
   render: (h) => h(App),
 }).$mount("#app");

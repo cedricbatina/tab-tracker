@@ -1,4 +1,4 @@
-import Api from "./Api";
+import Api from "./UserApi";
 
 class AuthenticationService {
   login(user) {
