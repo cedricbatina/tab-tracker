@@ -4,11 +4,14 @@ class SongService {
   getAllSongs() {
     return api().get("/songs");
   }
+  onlySongsFromUser() {
+    return api().get("/songs/user/:userId");
+  }
   getAsong(id) {
     return api().get(`/songs/${id}`);
   }
   createSong(data) {
-    return api().post("/songs", data);
+    return api().post("/songs/add", data);
   }
   updateSong(id, data) {
     return api().put(`/songs/${id}`, data);

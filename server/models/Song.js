@@ -17,10 +17,10 @@ module.exports = (sequelize, Sequelize) => {
     youtubeId: {
       type: Sequelize.STRING,
     },
-    lyrics: {
+    tab: {
       type: Sequelize.TEXT,
     },
-    tab: {
+    lyrics: {
       type: Sequelize.TEXT,
     },
   });

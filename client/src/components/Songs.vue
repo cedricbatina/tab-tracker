@@ -7,13 +7,13 @@
       <v-btn small @click="searchTitle"> Search </v-btn>
     </v-col>
     <v-col cols="12" sm="12">
-      <v-card class="mx-auto" tile>
+      <v-card class="mx-auto" title>
         <v-card-title>Songs</v-card-title>
         <v-data-table
           :headers="headers"
           :items="songs"
           disable-pagination
-          :hide-default-footer="true"
+          :hide-default-footer="false"
         >
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editSongs(item.id)"
@@ -70,8 +70,8 @@ export default {
           console.log(response.data);
           this.refreshList();
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((error) => {
+          console.log(error);
         });
     },
     searchTitle() {
@@ -80,12 +80,12 @@ export default {
           this.Songs = response.data.songs;
           console.log(response.data);
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((error) => {
+          console.log(error);
         });
     },
     editSongs(id) {
-      this.$router.push({ name: "Songs-details", params: { id: id } });
+      this.$router.push({ name: "/songs/:id", params: { id: id } });
     },
     deleteSongs(id) {
       SongService.delete(id)

@@ -29,7 +29,6 @@
           <form name="form" @submit.prevent="handleLogin">
             <div class="form-group">
               <v-text-field
-                :rules="nameRules"
                 label="name"
                 v-model="user.name"
                 v-validate="'required|min:3|max:10'"
@@ -49,13 +48,12 @@
             </div>
             <div class="form-group">
               <v-text-field
-                :rules="passwordRules"
                 label="password"
                 v-model="user.password"
                 v-validate="'required'"
                 type="password"
                 class="form-control"
-                name="name"
+                name="password"
               >
               </v-text-field>
 

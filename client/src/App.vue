@@ -66,7 +66,9 @@
               <router-link class="nav-link" to="/songs">Songs</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/add">Add</router-link>
+              <router-link class="nav-link" to="/songs/add"
+                >AddSong</router-link
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href @click.prevent="logOut">
