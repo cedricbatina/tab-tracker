@@ -1,17 +1,17 @@
 const models = require("../models");
-const User = require("../models/User");
 const Song = models.song;
+const User = models.user;
 
 exports.getOneSong = (req, res, next) => {
   const id = req.params.id;
   Song.findOne({
-    /*include: [
+    include: [
       {
         model: User,
         as: "user",
         attributes: ["name"],
       },
-    ],*/
+    ],
     where: { id: id },
   })
     .then((data) => {
@@ -31,13 +31,14 @@ exports.getAllSongs = (req, res, next) => {
   const title = req.body.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   Song.findAll({
-    /*include: [
+    include: [
       {
         model: User,
         as: "user",
         attributes: ["name"],
       },
-    ],*/
+    ],
+    limit: 8,
     where: condition,
   })
     .then((songs) => {

@@ -24,8 +24,9 @@
         </v-data-table>
         <v-card-actions v-if="songs.length > 0">
           <v-btn small color="error" @click="removeAllSongs">
-            Remove All
+            REMOVE ALL
           </v-btn>
+          <v-btn small color="error" @click="goAndAddSong"> ADD A SONG </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -92,9 +93,12 @@ export default {
         .then(() => {
           this.refreshList();
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((error) => {
+          console.log(error);
         });
+    },
+    goAndAddSong() {
+      this.$router.push("/songs/add");
     },
     /*getDisplaySongs(songs) {
       return {

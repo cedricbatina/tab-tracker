@@ -2,7 +2,7 @@
   <div>
     <h1 class="text-center">Thanks for posting your song</h1>
 
-    <v-card>
+    <v-card v-if="!submitted">
       <v-form name="form" ref="form" class="mx-2">
         <v-row>
           <h2>Song Metadata</h2>
@@ -39,7 +39,7 @@
               <v-text-field
                 label="Album"
                 v-model="song.album"
-                v-validate="'required|min:3|max:15'"
+                v-validate="'required|min:3|max:25'"
                 type="text"
                 class="form-control"
                 name="album"
@@ -112,7 +112,16 @@
         >
       </v-form></v-card
     >
-    >
+    <v-card v-else text-center>
+      <h2>Create another song</h2>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore, qui
+        eligendi pariatur praesentium error distinctio aliquam assumenda magni!
+        Eligendi magnam quod labore culpa aperiam numquam natus reprehenderit
+        non iure quidem?
+      </p>
+      <v-btn @click="newSong">CREATE</v-btn>
+    </v-card>
   </div>
 </template>
 
@@ -132,7 +141,7 @@ export default {
         tab: "",
         lyrics: "",
       },
-      // submitted = false
+      submitted: "",
     };
   },
   methods: {
@@ -151,7 +160,7 @@ export default {
         .createSong(data)
         .then((response) => {
           this.song.id = response.data.id;
-          // this.submitted = true;
+          this.submitted = true;
         })
         .catch((error) => {
           console.log(error);
@@ -159,7 +168,8 @@ export default {
     },
     newSong() {
       this.song = {};
-      // this.submitted= false
+      this.submitted = false;
+      //this.$router.push("/songs");
     },
   },
 };
