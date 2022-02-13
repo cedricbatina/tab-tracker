@@ -5,6 +5,7 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Songs from "./components/Songs.vue";
 import AddSong from "./components/AddSong.vue";
+import viewSong from "./components/viewSong.vue";
 
 Vue.use(Router);
 
@@ -20,6 +21,7 @@ export const router = new Router({
       path: "/home",
       component: Home,
     },
+
     {
       path: "/login",
       component: Login,
@@ -31,6 +33,10 @@ export const router = new Router({
     {
       path: "/songs",
       component: Songs,
+    },
+    {
+      path: "/songs/:id",
+      component: viewSong,
     },
     {
       path: "/songs/add",

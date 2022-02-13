@@ -15,16 +15,15 @@ exports.getOneSong = (req, res, next) => {
     where: { id: id },
   })
     .then((data) => {
-      res.status(209).json({ data, message: "song available in database!" });
+      res.status(200).json({ data, message: "song available in database!" });
     })
     .catch((error) => {
-      res.status(410).json({
+      res.status(404).json({
         error,
         message:
           "the song is no more available and migth available in the future!",
       });
     });
-  next();
 };
 
 exports.getAllSongs = (req, res, next) => {
@@ -61,24 +60,23 @@ exports.onlySongsFromUser = (req, res, next) => {
     .catch((error) => {
       res.status(403).json({ error, message: "something went wrong!" });
     });
-  next();
 };
 
 exports.createSong = (req, res, next) => {
   if (!req.body.title) {
     return;
-    res.status(401).json({ message: "Title field cannot be empty!" });
+    res.status(400).json({ message: "Title field cannot be empty!" });
   }
   if (!req.body.artist) {
     return;
     res.status(401).json({ message: "Artist field cannot be empty!" });
   }
   if (!req.body.album) {
-    res.status(401).json({ message: "Album field cannot be empty!" });
+    res.status(400).json({ message: "Album field cannot be empty!" });
     return;
   }
   if (!req.body.genre) {
-    res.status(405).json({ message: "Genre field cannot be empty!" });
+    res.status(400).json({ message: "Genre field cannot be empty!" });
     return;
   }
   const song = {
@@ -97,11 +95,9 @@ exports.createSong = (req, res, next) => {
       console.log(song);
     })
     .catch((error) => {
-      res.status(408).json({ message: "could not create song!" });
+      res.status(404).json({ message: "could not create song!" });
       console.log(error);
     });
-
-  // next();
 };
 
 exports.updateSong = (req, res, next) => {
@@ -115,7 +111,7 @@ exports.updateSong = (req, res, next) => {
       }
     })
     .catch((error) => {
-      res.status(408).json({ message: "could not update the song!" });
+      res.status(404).json({ message: "could not update the song!" });
     });
   next();
 };
@@ -124,12 +120,11 @@ exports.deleteSong = (req, res, next) => {
   const id = req.params.id;
   Song.destroy({ where: { id: id } })
     .then(() => {
-      res.status(209).json({ message: "The song has been deleted!" });
+      res.status(202).json({ message: "The song has been deleted!" });
     })
     .catch((error) => {
       res.status(502).json({ error, message: "could not delete the song!" });
     });
-  next();
 };
 exports.deleteAllSongs = (req, res, next) => {
   Song.destroy({ where: {}, truncate: false })
@@ -137,7 +132,6 @@ exports.deleteAllSongs = (req, res, next) => {
       res.status(200).json({ message: `${nums} + "songs have been deleted!"` });
     })
     .catch((error) => {
-      res.status(411).json({ message: "something went wrong!", error });
+      res.status(404).json({ message: "something went wrong!", error });
     });
-  next();
 };

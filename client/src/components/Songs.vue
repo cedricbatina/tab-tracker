@@ -16,6 +16,10 @@
           :hide-default-footer="false"
         >
           <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="getSong(item.id)"
+              >mdi-eye</v-icon
+            >
+
             <v-icon small class="mr-2" @click="editSongs(item.id)"
               >mdi-pencil</v-icon
             >
@@ -29,10 +33,21 @@
           <v-btn small color="error" @click="goAndAddSong"> ADD A SONG </v-btn>
         </v-card-actions>
       </v-card>
+      <div v-if="oneSong">
+        <h3>
+          I don't know yet why I can't yet* get the render from oneSong.tab I do
+          not worry, not at all. I use to find a way to figure out and fix the
+          issues and I learn a lot through the process, I am working in
+          progress.Just continue working Cédric, You gonna hold it soon!!{{
+            oneSong.tab
+          }}!!!!!
+        </h3>
+      </div>
     </v-col>
   </v-row>
 </template>
 <script>
+import songService from "../services/songService";
 import SongService from "../services/songService";
 export default {
   name: "Song",
@@ -46,6 +61,7 @@ export default {
         { text: "Status", value: "status", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
+      oneSong: null,
     };
   },
   methods: {
@@ -53,6 +69,7 @@ export default {
       SongService.getAllSongs()
         .then((response) => {
           this.songs = response.data.songs;
+          this.oneSong = null;
           console.log(response.data);
         })
         .catch((error) => {
@@ -99,6 +116,17 @@ export default {
     },
     goAndAddSong() {
       this.$router.push("/songs/add");
+    },
+    getSong(id) {
+      songService
+        .getAsong(id)
+        .then((response) => {
+          this.oneSong = response.data;
+          //this.$router.push({ name: "/songs/:id", params: { id: id } });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     /*getDisplaySongs(songs) {
       return {
