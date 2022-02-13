@@ -20,7 +20,7 @@
                 label="Title"
                 v-model="song.title"
                 required
-                :rules="'required'"
+                :rules="[required]"
                 v-validate="'required|min:3|max:15'"
                 type="text"
                 class="form-control"
@@ -31,7 +31,7 @@
                 label="Artist"
                 v-model="song.artist"
                 required
-                :rules="'required'"
+                :rules="[required]"
                 v-validate="'required|min:3|max:15'"
                 type="text"
                 class="form-control"
@@ -44,7 +44,7 @@
                 label="Album"
                 v-model="song.album"
                 required
-                :rules="'required'"
+                :rules="[required]"
                 v-validate="'required|min:3|max:25'"
                 type="text"
                 class="form-control"
@@ -55,7 +55,7 @@
                 label="Genre"
                 v-model="song.genre"
                 required
-                :rules="'required'"
+                :rules="[required]"
                 v-validate="'required|min:3|max:15'"
                 type="text"
                 class="form-control"
@@ -68,7 +68,7 @@
                 label="Album image url"
                 v-model="song.albumImageUrl"
                 required
-                :rules="'required'"
+                :rules="[required]"
                 v-validate="'required|min:3|max:15'"
                 type="text"
                 class="form-control"
@@ -102,7 +102,7 @@
                 label="Tab"
                 v-model="song.tab"
                 multi-line
-                v-validate="'required'"
+                v-validate="[required]"
                 type="textarea"
                 class="form-control"
                 name="tab"
@@ -112,7 +112,7 @@
                 label="Lyrics"
                 v-model="song.lyrics"
                 multi-line
-                v-validate="'required'"
+                v-validate="[required]"
                 type="textaera"
                 class="form-control"
                 name="lyrics"

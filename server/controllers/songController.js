@@ -62,7 +62,7 @@ exports.onlySongsFromUser = (req, res, next) => {
     });
 };
 
-exports.createSong = (req, res, next) => {
+exports.createSong = (req, res) => {
   if (!req.body.title) {
     return;
     res.status(400).json({ message: "Title field cannot be empty!" });
@@ -113,7 +113,6 @@ exports.updateSong = (req, res, next) => {
     .catch((error) => {
       res.status(404).json({ message: "could not update the song!" });
     });
-  next();
 };
 
 exports.deleteSong = (req, res, next) => {

@@ -16,14 +16,14 @@
           :hide-default-footer="false"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="getSong(item.id)"
+            <v-icon small class="mr-2" @click="goAndViewSong(item.id)"
               >mdi-eye</v-icon
             >
 
             <v-icon small class="mr-2" @click="editSongs(item.id)"
               >mdi-pencil</v-icon
             >
-            <v-icon small @click="deleteSongs(item.id)">mdi-delete</v-icon>
+            <v-icon small @click="deleteSong(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
         <v-card-actions v-if="songs.length > 0">
@@ -69,7 +69,7 @@ export default {
       SongService.getAllSongs()
         .then((response) => {
           this.songs = response.data.songs;
-          this.oneSong = null;
+          // this.oneSong = null;
           console.log(response.data);
         })
         .catch((error) => {
@@ -103,7 +103,7 @@ export default {
         });
     },
     editSongs(id) {
-      this.$router.push({ name: "/songs/:id", params: { id: id } });
+      this.$router.push({ path: "/songs/update/:id", params: { id: id } });
     },
     deleteSongs(id) {
       SongService.delete(id)
@@ -114,15 +114,29 @@ export default {
           console.log(error);
         });
     },
+    deleteSong(songId) {
+      songService
+        .deleteSong(songId)
+        .then(() => {
+          this.refreshList();
+        })
+        .catch((error) => {
+          this.message = error;
+        });
+    },
     goAndAddSong() {
       this.$router.push("/songs/add");
     },
+    goAndViewSong(id) {
+      this.$router.push({ path: "/songs/song/:id", params: { id: id } });
+    },
+
     getSong(id) {
       songService
         .getAsong(id)
         .then((response) => {
           this.oneSong = response.data;
-          //this.$router.push({ name: "/songs/:id", params: { id: id } });
+          this.$router.push({ path: "/songs/song/:id", params: { id: id } });
         })
         .catch((error) => {
           console.log(error);

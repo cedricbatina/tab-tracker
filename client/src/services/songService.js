@@ -8,16 +8,16 @@ class SongService {
     return api().get("/songs/user/:userId");
   }
   getAsong(id) {
-    return api().get(`/songs/${id}`);
+    return api().get(`/songs/song/${id}`);
   }
   createSong(data) {
     return api().post("/songs/add", data);
   }
   updateSong(id, data) {
-    return api().put(`/songs/${id}`, data);
+    return api().put(`/songs/update/${id}`, data);
   }
-  deleteSong(id) {
-    return api().delete(`/songs/${id}`);
+  deleteSong(id, data) {
+    return api().delete(`/songs/delete/${id}`, data);
   }
   deleteAll() {
     return api().delete(`/songs`);
